@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    "
+  >
+    <div
+      class="container"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <h1>Pokemon</h1>
+      <img id="photo" src="" alt="" />
+      <h4 id="name"></h4>
+      <button id="change">change</button>
+    </div>
+
+    <script>
+      document
+        .getElementById("change")
+        .addEventListener("click", async function () {
+          const photo = document.getElementById("photo");
+          let random = Math.floor(Math.random() * 1000);
+          const api = `https://pokeapi.co/api/v2/pokemon/${random}`;
+          const reco = await fetch(api);
+          const data = await reco.json();
+
+          console.log(data);
+          photo.src = data.sprites.front_default;
+          document.getElementById("name").innerHTML = data.species.name;
+        });
+    </script>
+  </body>
+</html>
